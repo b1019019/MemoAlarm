@@ -10,8 +10,8 @@ import UIKit
 class ViewController: UIViewController {
     
     private struct Const {
-        static let alarmTableViewCellNibName = ""
-        static let alarmTableViewCellReuseIdentifier = ""
+        static let alarmTableViewCellNibName = "AlarmTableViewCell"
+        static let alarmTableViewCellReuseIdentifier = "AlarmTableViewCell"
         static let numberOfRowsInSection = 20
     }
     
