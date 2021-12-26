@@ -15,6 +15,7 @@
 		3AAC653C274F7B0400660BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AAC653A274F7B0400660BFD /* LaunchScreen.storyboard */; };
 		3AAC6545274FD0CC00660BFD /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */; };
 		3AAC6546274FD0CC00660BFD /* AlarmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */; };
+		3AE4302F2778746300E80B7A /* AlarmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4302E2778746300E80B7A /* AlarmData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3AAC653D274F7B0400660BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlarmTableViewCell.xib; sourceTree = "<group>"; };
+		3AE4302E2778746300E80B7A /* AlarmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				3AAC6531274F7B0300660BFD /* SceneDelegate.swift */,
 				3AAC6533274F7B0300660BFD /* ViewController.swift */,
 				3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */,
+				3AE4302E2778746300E80B7A /* AlarmData.swift */,
 				3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */,
 				3AAC6535274F7B0300660BFD /* Main.storyboard */,
 				3AAC6538274F7B0400660BFD /* Assets.xcassets */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE4302F2778746300E80B7A /* AlarmData.swift in Sources */,
 				3AAC6534274F7B0300660BFD /* ViewController.swift in Sources */,
 				3AAC6530274F7B0300660BFD /* AppDelegate.swift in Sources */,
 				3AAC6532274F7B0300660BFD /* SceneDelegate.swift in Sources */,
