@@ -15,6 +15,8 @@ class ViewController: UIViewController {
         static let numberOfRowsInSection = 20
     }
     
+    private var alarms = [Alarm]()
+    
     @IBOutlet private weak var alarmTableView: UITableView! {
         didSet {
             alarmTableView.delegate = self
@@ -38,11 +40,12 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Const.numberOfRowsInSection
+        return alarms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Const.alarmTableViewCellNibName, for: indexPath) as! AlarmTableViewCell
+        cell.setup(alarm: alarms[indexPath.row])
         return cell
     }
     
