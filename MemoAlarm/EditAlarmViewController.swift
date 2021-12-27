@@ -13,14 +13,28 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var editRingTimingDatePicker: UIDatePicker!
     @IBOutlet weak var editRepeatDatesView: UIView!
     @IBOutlet weak var editNoteTextView: UITextView!
-    
-    
+
+    var alarm: Alarm!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
+    func setup(alarm: Alarm) {
+        
+        self.alarm = alarm
+        editNameTextField.text = alarm.name
+        editRingTimingDatePicker.date = alarm.ringTiming.date ?? Date()
+        editNoteTextView.text = alarm.note
+    }
+
+    func applyEditToAlarm() {
+        alarm.name = editNameTextField.text ?? ""
+        alarm.note = editNoteTextView.text
+        alarm.ringTiming = Const.calendar.dateComponents(in: Const.calendar.timeZone, from: editRingTimingDatePicker.date)
+    }
 
     /*
     // MARK: - Navigation
