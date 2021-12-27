@@ -15,6 +15,8 @@
 		3AAC653C274F7B0400660BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AAC653A274F7B0400660BFD /* LaunchScreen.storyboard */; };
 		3AAC6545274FD0CC00660BFD /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */; };
 		3AAC6546274FD0CC00660BFD /* AlarmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */; };
+		3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */; };
+		3AE430332779A46F00E80B7A /* EditAlarmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		3AAC653D274F7B0400660BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlarmTableViewCell.xib; sourceTree = "<group>"; };
+		3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewController.swift; sourceTree = "<group>"; };
+		3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAlarmViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */,
 				3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */,
 				3AAC6535274F7B0300660BFD /* Main.storyboard */,
+				3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */,
+				3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */,
 				3AAC6538274F7B0400660BFD /* Assets.xcassets */,
 				3AAC653A274F7B0400660BFD /* LaunchScreen.storyboard */,
 				3AAC653D274F7B0400660BFD /* Info.plist */,
@@ -132,6 +138,7 @@
 			files = (
 				3AAC653C274F7B0400660BFD /* LaunchScreen.storyboard in Resources */,
 				3AAC6539274F7B0400660BFD /* Assets.xcassets in Resources */,
+				3AE430332779A46F00E80B7A /* EditAlarmViewController.xib in Resources */,
 				3AAC6537274F7B0300660BFD /* Main.storyboard in Resources */,
 				3AAC6546274FD0CC00660BFD /* AlarmTableViewCell.xib in Resources */,
 			);
@@ -144,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */,
 				3AAC6534274F7B0300660BFD /* ViewController.swift in Sources */,
 				3AAC6530274F7B0300660BFD /* AppDelegate.swift in Sources */,
 				3AAC6532274F7B0300660BFD /* SceneDelegate.swift in Sources */,
