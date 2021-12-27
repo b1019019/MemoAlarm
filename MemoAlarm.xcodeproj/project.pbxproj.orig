@@ -16,9 +16,12 @@
 		3AAC653C274F7B0400660BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AAC653A274F7B0400660BFD /* LaunchScreen.storyboard */; };
 		3AAC6545274FD0CC00660BFD /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */; };
 		3AAC6546274FD0CC00660BFD /* AlarmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */; };
+<<<<<<< HEAD
 		3AE4302F2778746300E80B7A /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4302E2778746300E80B7A /* Alarm.swift */; };
+=======
 		3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */; };
 		3AE430332779A46F00E80B7A /* EditAlarmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */; };
+>>>>>>> feature/add_EditAlarmViewController
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +36,12 @@
 		3AAC653D274F7B0400660BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlarmTableViewCell.xib; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		3AE4302E2778746300E80B7A /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+=======
 		3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewController.swift; sourceTree = "<group>"; };
 		3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAlarmViewController.xib; sourceTree = "<group>"; };
+>>>>>>> feature/add_EditAlarmViewController
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,8 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				3AE4302F2778746300E80B7A /* Alarm.swift in Sources */,
+=======
 				3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */,
+>>>>>>> feature/add_EditAlarmViewController
 				3AAC6534274F7B0300660BFD /* ViewController.swift in Sources */,
 				3AAC6530274F7B0300660BFD /* AppDelegate.swift in Sources */,
 				3AAC6532274F7B0300660BFD /* SceneDelegate.swift in Sources */,
