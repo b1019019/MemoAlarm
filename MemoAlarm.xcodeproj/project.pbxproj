@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A3348192779C5E300F71D3A /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3348182779C5E300F71D3A /* Alarm.swift */; };
 		3A33481B2779DA4200F71D3A /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33481A2779DA4200F71D3A /* Const.swift */; };
 		3AAC6530274F7B0300660BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC652F274F7B0300660BFD /* AppDelegate.swift */; };
 		3AAC6532274F7B0300660BFD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC6531274F7B0300660BFD /* SceneDelegate.swift */; };
@@ -22,7 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3A3348182779C5E300F71D3A /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alarm.swift; path = ../../../../Desktop/Alarm.swift; sourceTree = "<group>"; };
 		3A33481A2779DA4200F71D3A /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		3AAC652C274F7B0300660BFD /* MemoAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AAC652F274F7B0300660BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				3AAC6543274FD0CC00660BFD /* AlarmTableViewCell.swift */,
 				3AAC6544274FD0CC00660BFD /* AlarmTableViewCell.xib */,
 				3AAC6535274F7B0300660BFD /* Main.storyboard */,
-				3A3348182779C5E300F71D3A /* Alarm.swift */,
 				3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */,
 				3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */,
 				3AAC6538274F7B0400660BFD /* Assets.xcassets */,
@@ -162,7 +159,6 @@
 				3AAC6530274F7B0300660BFD /* AppDelegate.swift in Sources */,
 				3AAC6532274F7B0300660BFD /* SceneDelegate.swift in Sources */,
 				3AAC6545274FD0CC00660BFD /* AlarmTableViewCell.swift in Sources */,
-				3A3348192779C5E300F71D3A /* Alarm.swift in Sources */,
 				3A33481B2779DA4200F71D3A /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
