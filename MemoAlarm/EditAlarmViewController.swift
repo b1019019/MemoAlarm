@@ -21,6 +21,11 @@ class EditAlarmViewController: UIViewController {
         }
     }
     @IBOutlet weak var editRepeatDatesView: UIView!
+    @IBOutlet weak var displayRepeatDatesLabel: UILabel! {
+        didSet {
+            displayRepeatDatesLabel.text = [RepeatDate](alarm.repeatDates).map{ $0.rawValue }.joined(separator: ",")
+        }
+    }
     @IBOutlet weak var editNoteTextView: UITextView! {
         didSet {
             editNoteTextView.text = alarm.note
