@@ -67,14 +67,26 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLE-Tm-rLM">
+                            <rect key="frame" x="92" y="0.0" width="322" height="58"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <connections>
+                                <action selector="tappedRepeatDatesView:" destination="-1" eventType="touchUpInside" id="Lwg-wd-icD"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                     <constraints>
                         <constraint firstItem="UFw-ph-Z97" firstAttribute="top" secondItem="wWN-pu-L5o" secondAttribute="bottom" constant="6" id="KTZ-N9-ZA7"/>
+                        <constraint firstItem="HLE-Tm-rLM" firstAttribute="top" secondItem="cHF-6D-gWn" secondAttribute="top" id="WJz-LJ-fle"/>
                         <constraint firstItem="wWN-pu-L5o" firstAttribute="leading" secondItem="cHF-6D-gWn" secondAttribute="leading" constant="16" id="XQA-4Z-zzV"/>
                         <constraint firstItem="wWN-pu-L5o" firstAttribute="top" secondItem="cHF-6D-gWn" secondAttribute="top" constant="10" id="Zjz-qI-Tcf"/>
                         <constraint firstItem="UFw-ph-Z97" firstAttribute="leading" secondItem="cHF-6D-gWn" secondAttribute="leading" constant="16" id="bVy-TL-Wla"/>
+                        <constraint firstAttribute="bottom" secondItem="HLE-Tm-rLM" secondAttribute="bottom" id="i9C-vi-xQV"/>
                         <constraint firstAttribute="height" constant="58" id="kpf-28-ciK"/>
+                        <constraint firstAttribute="trailing" secondItem="HLE-Tm-rLM" secondAttribute="trailing" id="uUs-CS-1bn"/>
+                        <constraint firstItem="HLE-Tm-rLM" firstAttribute="leading" secondItem="wWN-pu-L5o" secondAttribute="trailing" constant="2" id="vrj-vM-Vau"/>
                     </constraints>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hNw-Fz-5yk">
@@ -105,7 +117,7 @@
                 <constraint firstItem="hNw-Fz-5yk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pfQ-JP-x1r"/>
                 <constraint firstItem="cHF-6D-gWn" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="yL7-bm-dvY"/>
             </constraints>
-            <point key="canvasLocation" x="-501" y="-603"/>
+            <point key="canvasLocation" x="-501.44927536231887" y="-603.34821428571422"/>
         </view>
     </objects>
     <resources>

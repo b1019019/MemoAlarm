@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditRepeatDatesModalViewController" customModule="MemoAlarm" customModuleProvider="target">
             <connections>
+                <outlet property="selectRepeatDatesTableView" destination="dKs-Th-76x" id="phK-TD-W8S"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,9 +19,41 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dKs-Th-76x">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="831"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Tr-i2-Yfc">
+                    <rect key="frame" x="0.0" y="831" width="95.5" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="キャンセル"/>
+                    <connections>
+                        <action selector="tappedCancelButton:" destination="-1" eventType="touchUpInside" id="0Wg-p4-kcq"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4xN-Jq-dCI">
+                    <rect key="frame" x="361" y="831" width="53" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="決定"/>
+                    <connections>
+                        <action selector="tappedEnterButton:" destination="-1" eventType="touchUpInside" id="feS-rc-IzS"/>
+                    </connections>
+                </button>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="139" y="63"/>
+            <constraints>
+                <constraint firstItem="dKs-Th-76x" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="BEm-sg-04g"/>
+                <constraint firstItem="dKs-Th-76x" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Qet-DR-Ox7"/>
+                <constraint firstItem="dKs-Th-76x" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VkA-z0-uxv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4xN-Jq-dCI" secondAttribute="trailing" id="Xfg-G9-Xh6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4xN-Jq-dCI" secondAttribute="bottom" id="kE0-FY-5yj"/>
+                <constraint firstItem="4xN-Jq-dCI" firstAttribute="top" secondItem="dKs-Th-76x" secondAttribute="bottom" id="uF7-HU-RRT"/>
+                <constraint firstItem="5Tr-i2-Yfc" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="x5v-RD-aMM"/>
+                <constraint firstItem="5Tr-i2-Yfc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zbC-hi-GAx"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="62.946428571428569"/>
         </view>
     </objects>
     <resources>

@@ -57,6 +57,12 @@ class EditAlarmViewController: UIViewController {
         }
     }
 
+    @IBAction func tappedRepeatDatesView(_ sender: UIButton) {
+        print("fafafafafa")
+        let editRepeatDatesModalViewController = EditRepeatDatesModalViewController(nibName: "EditRepeatDatesModalViewController", bundle: nil, alarm: alarm)
+        self.present(editRepeatDatesModalViewController, animated: true)
+    }
+    
     private func setup(alarm: Alarm) {
         self.alarm = alarm
         
