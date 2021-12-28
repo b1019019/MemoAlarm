@@ -23,7 +23,7 @@ class AlarmTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -47,7 +47,7 @@ class AlarmTableViewCell: UITableViewCell {
         self.alarm = alarm
         alarmSetSwitch.isOn = alarm.isRingable
         alarmNameLabel.text = alarm.name
-        alarmTimeLabel.text = "\(ringHour):\(ringMinute)"
+        alarmTimeLabel.text = "\(ringHour),\(ringMinute)"
         repeatDateLabel.text = [RepeatDate](alarm.repeatDates).map{ $0.rawValue }.joined(separator: ",")
     }
     

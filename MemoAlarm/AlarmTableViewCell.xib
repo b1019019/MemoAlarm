@@ -71,7 +71,7 @@
             <connections>
                 <outlet property="alarmNameLabel" destination="ZeV-y3-J9c" id="X0V-jx-ybq"/>
                 <outlet property="alarmSetSwitch" destination="Ezf-49-aVm" id="ySQ-CS-zpW"/>
-                <outlet property="alarmTimeLabel" destination="uBn-0w-crb" id="wK4-Zo-2Du"/>
+                <outlet property="alarmTimeLabel" destination="bm5-VF-v9E" id="nwz-gb-4Cu"/>
                 <outlet property="repeatDateLabel" destination="uBn-0w-crb" id="KUy-6P-UWn"/>
             </connections>
             <point key="canvasLocation" x="66.666666666666671" y="95.758928571428569"/>

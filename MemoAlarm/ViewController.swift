@@ -15,9 +15,9 @@ class ViewController: UIViewController {
         static let numberOfRowsInSection = 20
     }
     
-    private var alarms = [Alarm]()
-    
-    @IBOutlet private weak var alarmTableView: UITableView! {
+    private var alarms = [Alarm(name: "アラームの名前", note: "メモ", ringTime: DateComponents(calendar: GlobalConst.calendar, hour: 7, minute: 23), repeatDates: Set<RepeatDate>([.everyFriday,.everyMonday]), isRingable: false)]
+
+    @IBOutlet weak var alarmTableView: UITableView! {
         didSet {
             alarmTableView.delegate = self
             alarmTableView.dataSource = self
@@ -50,8 +50,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let editAlarmViewController = EditAlarmViewController(nibName: "EditAlarmViewController", bundle: nil, alarm: alarms[indexPath.row])
+        self.present(editAlarmViewController, animated: true)
     }
-    
-    
 }
