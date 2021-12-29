@@ -23,7 +23,7 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var editRepeatDatesView: UIView!
     @IBOutlet weak var displayRepeatDatesLabel: UILabel! {
         didSet {
-            displayRepeatDatesLabel.text = [RepeatDate](alarm.repeatDates).map{ $0.rawValue }.joined(separator: ",")
+            displayRepeatDatesLabel.text = alarm.isRepeated ? "あり" : "なし"
         }
     }
     @IBOutlet weak var editNoteTextView: UITextView! {
@@ -58,9 +58,13 @@ class EditAlarmViewController: UIViewController {
     }
 
     @IBAction func tappedRepeatDatesView(_ sender: UIButton) {
-        print("fafafafafa")
-        let editRepeatDatesModalViewController = EditRepeatDatesModalViewController(nibName: "EditRepeatDatesModalViewController", bundle: nil, alarm: alarm)
-        self.present(editRepeatDatesModalViewController, animated: true)
+        if alarm.isRepeated {
+            displayRepeatDatesLabel.text = "なし"
+            alarm.isRepeated = false
+        } else {
+            displayRepeatDatesLabel.text = "あり"
+            alarm.isRepeated = true
+        }
     }
     
     private func setup(alarm: Alarm) {

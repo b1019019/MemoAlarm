@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         static let numberOfRowsInSection = 20
     }
     
-    private var alarms = [Alarm(name: "アラームの名前", note: "メモ", ringTime: DateComponents(calendar: GlobalConst.calendar, hour: 7, minute: 23), repeatDates: Set<RepeatDate>([.everyFriday,.everyMonday]), isRingable: false)]
+    private var alarms = [Alarm(name: "アラームの名前", note: "メモ", ringTime: DateComponents(calendar: GlobalConst.calendar, hour: 7, minute: 23), isRepeated: true, isRingable: false)]
 
     @IBOutlet weak var alarmTableView: UITableView! {
         didSet {

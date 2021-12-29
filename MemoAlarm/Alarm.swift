@@ -7,29 +7,19 @@
 
 import UIKit
 
-enum RepeatDate: String {
-    case everyMonday = "月"
-    case everyTuesday = "火"
-    case everyWednesday = "水"
-    case everyThursday = "木"
-    case everyFriday = "金"
-    case everySaturday = "土"
-    case everySunday = "日"
-}
-
 class Alarm {
     var name: String
     var note: String
     var ringTiming: DateComponents
-    var repeatDates: Set<RepeatDate>
+    var isRepeated: Bool
     var isRingable: Bool
     let id = NSUUID().uuidString
     
-    init(name: String, note: String, ringTime: DateComponents, repeatDates: Set<RepeatDate>, isRingable: Bool) {
+    init(name: String, note: String, ringTime: DateComponents, isRepeated: Bool, isRingable: Bool) {
         self.name = name
         self.note = note
         self.ringTiming = ringTime
-        self.repeatDates = repeatDates
+        self.isRepeated = isRepeated
         self.isRingable = isRingable
     }
     
@@ -40,7 +30,7 @@ class Alarm {
         content.subtitle = name
         content.body = note
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: ringTiming, repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: ringTiming, repeats: isRepeated)
         
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         

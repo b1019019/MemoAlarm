@@ -48,7 +48,7 @@ class AlarmTableViewCell: UITableViewCell {
         alarmSetSwitch.isOn = alarm.isRingable
         alarmNameLabel.text = alarm.name
         alarmTimeLabel.text = "\(ringHour),\(ringMinute)"
-        repeatDateLabel.text = [RepeatDate](alarm.repeatDates).map{ $0.rawValue }.joined(separator: ",")
+        repeatDateLabel.text = alarm.isRepeated ? "繰り返しあり" : "繰り返しなし"
     }
     
 }
