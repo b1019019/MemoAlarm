@@ -37,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("terminate!!")
+    }
 
 
 }
@@ -44,8 +48,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate{
    
    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-       
        completionHandler([.banner, .list, .sound])
+       var viewController = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
+
+       for e in viewController.viewControllers {
+           if let v = e as? ViewController {
+               
+               v.alarmTableView.reloadData()
+               print("success",v)
+           } else {
+               print(e)
+           }
+       }
+       //vc.alarmTableView.reloadData()
        
    }
    

@@ -7,13 +7,15 @@
 
 import UIKit
 
-class Alarm {
+class Alarm: NSObject, NSCoding {
+    static var supportsSecureCoding = false
+    
     var name: String
     var note: String
     var ringTiming: DateComponents
     var isRepeated: Bool
     var isRingable: Bool
-    let id = NSUUID().uuidString
+    var id = NSUUID().uuidString
     
     init(name: String, note: String, ringTime: DateComponents, isRepeated: Bool, isRingable: Bool) {
         self.name = name
@@ -21,6 +23,24 @@ class Alarm {
         self.ringTiming = ringTime
         self.isRepeated = isRepeated
         self.isRingable = isRingable
+    }
+    
+    required init?(coder: NSCoder) {
+        name = coder.decodeObject(forKey: "name") as! String
+        note = coder.decodeObject(forKey: "note") as! String
+        ringTiming = coder.decodeObject(forKey: "ringTiming") as! DateComponents
+        isRepeated = coder.decodeBool(forKey: "isRepeated") as! Bool
+        isRingable = coder.decodeBool(forKey: "isRingable") as! Bool
+        id = coder.decodeObject(forKey: "id") as! String
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(self.name, forKey: "name")
+        coder.encode(self.note, forKey: "note")
+        coder.encode(self.ringTiming, forKey: "ringTiming")
+        coder.encode(self.isRepeated, forKey: "isRepeated")
+        coder.encode(self.isRingable, forKey: "isRingable")
+        coder.encode(self.id, forKey: "id")
     }
     
     func set() {

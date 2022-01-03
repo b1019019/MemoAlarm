@@ -15,4 +15,5 @@ struct GlobalConst {
         formatter.dateFormat = "HH時mm分"
         return formatter
     }()
+    static let alarmsUserDefaultKey = "alarms"
 }

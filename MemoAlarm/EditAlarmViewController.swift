@@ -52,9 +52,11 @@ class EditAlarmViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         applyEditToAlarm()
-        if let viewController = presentingViewController as? ViewController {
+        if let viewController = navigationController?.viewControllers[0] as? ViewController {
             viewController.alarmTableView.reloadData()
+            print("reloaded")
         }
+        print("willDisappear")
     }
 
     @IBAction func tappedRepeatDatesView(_ sender: UIButton) {
