@@ -10,16 +10,20 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]){ (granted, _) in
-            if granted{
+            if granted {
                 UNUserNotificationCenter.current().delegate = self
             }
         }
+        
+        let newWindow = UIWindow(frame: UIScreen.main.bounds)
+        self.window = newWindow
+        Router.showRoot(window: window)
         
         return true
     }
@@ -53,9 +57,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
 
        for e in viewController.viewControllers {
            if let v = e as? ViewController {
-               
                v.alarmTableView.reloadData()
-               print("success",v)
            } else {
                print(e)
            }

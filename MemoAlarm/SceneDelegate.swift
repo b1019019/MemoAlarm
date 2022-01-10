@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  MemoAlarm
 //
-//  Created by 山田純平 on 2021/11/25.
+//  Created by 山田純平 on 2022/01/09.
 //
 
 import UIKit
@@ -17,6 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            self.window = window
+            Router.showRoot(window: window)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -49,4 +54,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
