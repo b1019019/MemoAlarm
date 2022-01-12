@@ -29,7 +29,7 @@ class AlarmTableViewCell: UITableViewCell {
         index = indexPath.row
         alarmSetSwitch.setOn(isRingable, animated: false)
         alarmNameLabel.text = name
-        alarmTimeLabel.text = "\(ringTiming.hour!):\(ringTiming.minute!)"
+        alarmTimeLabel.text = "\(ringTiming.hour!)" + ":" + String(format: "%02d", ringTiming.minute!)
         repeatDateLabel.text = isRepeated ? "繰り返しあり" : "繰り返しなし"
     }
     

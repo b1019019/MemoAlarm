@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bm5-VF-v9E">
-                        <rect key="frame" x="258" y="15" width="46" height="18"/>
+                        <rect key="frame" x="258.5" y="15" width="45.5" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="Csi-2b-Ia8"/>
                         </constraints>
@@ -26,11 +26,11 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="繰り返し" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBn-0w-crb">
-                        <rect key="frame" x="271" y="38" width="33" height="8"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="繰り返しあり" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBn-0w-crb">
+                        <rect key="frame" x="254" y="38" width="50" height="8"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="5tt-5q-2JV"/>
-                            <constraint firstAttribute="width" constant="33" id="ZdA-w8-WxR"/>
+                            <constraint firstAttribute="width" constant="50" id="ZdA-w8-WxR"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                         <nil key="textColor"/>
