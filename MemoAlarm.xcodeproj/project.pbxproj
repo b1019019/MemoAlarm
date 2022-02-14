@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,11 +24,15 @@
 		3ABDB78927BA198D00659EC1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDB78827BA198D00659EC1 /* NotificationManager.swift */; };
 		3ABDB78F27BA243200659EC1 /* EditAlarmViewNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDB78E27BA243200659EC1 /* EditAlarmViewNavigator.swift */; };
 		3ABDB79127BA244A00659EC1 /* MainViewNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDB79027BA244A00659EC1 /* MainViewNavigator.swift */; };
+		3ABDB79327BA26E500659EC1 /* EditAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDB79227BA26E500659EC1 /* EditAlarmViewModel.swift */; };
+		3ABDB79527BA28AA00659EC1 /* MainAlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDB79427BA28AA00659EC1 /* MainAlarmViewModel.swift */; };
 		3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */; };
 		3AE430332779A46F00E80B7A /* EditAlarmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */; };
+		BB9874BE4812C0A5BFE590EF /* Pods_MemoAlarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B59089794262CF9FE68191 /* Pods_MemoAlarm.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19D2CAA4FE6AD76768AFAFC2 /* Pods-MemoAlarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoAlarm.debug.xcconfig"; path = "Target Support Files/Pods-MemoAlarm/Pods-MemoAlarm.debug.xcconfig"; sourceTree = "<group>"; };
 		3A33481A2779DA4200F71D3A /* GlobalConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
 		3A4385AA2789D199002F7022 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		3A4385AE2789D6F1002F7022 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -48,8 +52,12 @@
 		3ABDB78827BA198D00659EC1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		3ABDB78E27BA243200659EC1 /* EditAlarmViewNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewNavigator.swift; sourceTree = "<group>"; };
 		3ABDB79027BA244A00659EC1 /* MainViewNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewNavigator.swift; sourceTree = "<group>"; };
+		3ABDB79227BA26E500659EC1 /* EditAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewModel.swift; sourceTree = "<group>"; };
+		3ABDB79427BA28AA00659EC1 /* MainAlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAlarmViewModel.swift; sourceTree = "<group>"; };
 		3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewController.swift; sourceTree = "<group>"; };
 		3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAlarmViewController.xib; sourceTree = "<group>"; };
+		755FE0C3A4500872E6942102 /* Pods-MemoAlarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoAlarm.release.xcconfig"; path = "Target Support Files/Pods-MemoAlarm/Pods-MemoAlarm.release.xcconfig"; sourceTree = "<group>"; };
+		B0B59089794262CF9FE68191 /* Pods_MemoAlarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoAlarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,12 +65,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB9874BE4812C0A5BFE590EF /* Pods_MemoAlarm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09FD43676C65366DDF93DA0D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0B59089794262CF9FE68191 /* Pods_MemoAlarm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3A4385A92789D17B002F7022 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +102,8 @@
 			children = (
 				3AAC652E274F7B0300660BFD /* MemoAlarm */,
 				3AAC652D274F7B0300660BFD /* Products */,
+				E88EC024E74F257C3AE464A0 /* Pods */,
+				09FD43676C65366DDF93DA0D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,7 +122,7 @@
 				3A4385B5278B2099002F7022 /* SceneDelegate.swift */,
 				3A33481A2779DA4200F71D3A /* GlobalConst.swift */,
 				3A4385A92789D17B002F7022 /* Model */,
-				3ABDB78527BA171B00659EC1 /* Database */,
+				3ABDB78527BA171B00659EC1 /* Dependencies */,
 				3ABDB78A27BA22A100659EC1 /* Scenes */,
 				3A4385B2278AE409002F7022 /* Router */,
 				3AAC6538274F7B0400660BFD /* Assets.xcassets */,
@@ -113,20 +132,20 @@
 			path = MemoAlarm;
 			sourceTree = "<group>";
 		};
-		3ABDB78527BA171B00659EC1 /* Database */ = {
+		3ABDB78527BA171B00659EC1 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
 				3ABDB78627BA176500659EC1 /* Database.swift */,
 				3ABDB78827BA198D00659EC1 /* NotificationManager.swift */,
 			);
-			path = Database;
+			path = Dependencies;
 			sourceTree = "<group>";
 		};
 		3ABDB78A27BA22A100659EC1 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				3ABDB78C27BA22D200659EC1 /* EditAlarmView */,
 				3ABDB78B27BA22C900659EC1 /* MainView */,
+				3ABDB78C27BA22D200659EC1 /* EditAlarmView */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -134,8 +153,9 @@
 		3ABDB78B27BA22C900659EC1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				3A4385AE2789D6F1002F7022 /* MainPresenter.swift */,
+				3ABDB79427BA28AA00659EC1 /* MainAlarmViewModel.swift */,
 				3AAC6533274F7B0300660BFD /* ViewController.swift */,
+				3A4385AE2789D6F1002F7022 /* MainPresenter.swift */,
 				3AAC6535274F7B0300660BFD /* Main.storyboard */,
 				3ABDB79027BA244A00659EC1 /* MainViewNavigator.swift */,
 				3ABDB78D27BA237600659EC1 /* Views */,
@@ -146,6 +166,7 @@
 		3ABDB78C27BA22D200659EC1 /* EditAlarmView */ = {
 			isa = PBXGroup;
 			children = (
+				3ABDB79227BA26E500659EC1 /* EditAlarmViewModel.swift */,
 				3A4385B0278A8B39002F7022 /* EditAlarmPresenter.swift */,
 				3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */,
 				3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */,
@@ -163,6 +184,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E88EC024E74F257C3AE464A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				19D2CAA4FE6AD76768AFAFC2 /* Pods-MemoAlarm.debug.xcconfig */,
+				755FE0C3A4500872E6942102 /* Pods-MemoAlarm.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,9 +200,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AAC6540274F7B0400660BFD /* Build configuration list for PBXNativeTarget "MemoAlarm" */;
 			buildPhases = (
+				631EBF822724F0F9E947385E /* [CP] Check Pods Manifest.lock */,
 				3AAC6528274F7B0200660BFD /* Sources */,
 				3AAC6529274F7B0200660BFD /* Frameworks */,
 				3AAC652A274F7B0200660BFD /* Resources */,
+				A7B97CC5B3D98BD97CE99793 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -230,18 +262,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		631EBF822724F0F9E947385E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MemoAlarm-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7B97CC5B3D98BD97CE99793 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MemoAlarm/Pods-MemoAlarm-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MemoAlarm/Pods-MemoAlarm-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MemoAlarm/Pods-MemoAlarm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3AAC6528274F7B0200660BFD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3A4385B4278AE42C002F7022 /* Router.swift in Sources */,
+				3ABDB79527BA28AA00659EC1 /* MainAlarmViewModel.swift in Sources */,
 				3ABDB78927BA198D00659EC1 /* NotificationManager.swift in Sources */,
 				3ABDB78727BA176500659EC1 /* Database.swift in Sources */,
 				3A4385AB2789D199002F7022 /* Alarm.swift in Sources */,
 				3A4385B1278A8B39002F7022 /* EditAlarmPresenter.swift in Sources */,
 				3ABDB79127BA244A00659EC1 /* MainViewNavigator.swift in Sources */,
 				3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */,
+				3ABDB79327BA26E500659EC1 /* EditAlarmViewModel.swift in Sources */,
 				3ABDB78F27BA243200659EC1 /* EditAlarmViewNavigator.swift in Sources */,
 				3AAC6534274F7B0300660BFD /* ViewController.swift in Sources */,
 				3A4385B6278B209A002F7022 /* SceneDelegate.swift in Sources */,
@@ -392,6 +468,7 @@
 		};
 		3AAC6541274F7B0400660BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19D2CAA4FE6AD76768AFAFC2 /* Pods-MemoAlarm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -412,6 +489,7 @@
 		};
 		3AAC6542274F7B0400660BFD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 755FE0C3A4500872E6942102 /* Pods-MemoAlarm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

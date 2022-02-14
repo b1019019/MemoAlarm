@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+protocol MainViewNavigatable {
+    func navigateToEditAlarmScreen(alarm: Alarm)
+    func navigateToMakeNewAlarmScreen()
+}
