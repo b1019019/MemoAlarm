@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol MainViewModelInputs: AnyObject {
-    var tappedSwitchInAlarmTableViewCell: PublishRelay<(Bool,IndexPath)> { get }
+    var tappedSwitchInAlarmTableViewCell: PublishRelay<(Bool,Int)> { get }
     var tappedButtonMakeNewAlarm: PublishRelay<Void> { get }
     var tappedAlarmTableViewCell: PublishRelay<IndexPath> { get }
     var ready: PublishRelay<Void> { get }
@@ -30,7 +30,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
     var outputs: MainViewModelOutputs { return self }
     
     // MARK: - Input
-    let tappedSwitchInAlarmTableViewCell = PublishRelay<(Bool, IndexPath)>()
+    let tappedSwitchInAlarmTableViewCell = PublishRelay<(Bool, Int)>()
     let tappedButtonMakeNewAlarm = PublishRelay<Void>()
     let tappedAlarmTableViewCell = PublishRelay<IndexPath>()
     let ready = PublishRelay<Void>()
@@ -55,7 +55,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         let alarmsChangedRingable = tappedSwitchInAlarmTableViewCell
             .withLatestFrom(alarms) { (pair,alarms) -> [Alarm] in
                 let newRingable = pair.0
-                let index = pair.1.row
+                let index = pair.1
                 alarms[index].isRingable = newRingable
                 return alarms
             }.asDriver(onErrorJustReturn: [])

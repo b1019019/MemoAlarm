@@ -17,27 +17,27 @@ class ViewController: UIViewController, AlarmTableViewCellDelegate {
         static let numberOfRowsInSection = 20
     }
     
-    var tappedSwitch = PublishRelay<(Bool, IndexPath)>()
+    var tappedSwitch = PublishRelay<(Bool, Int)>()
     
     private var viewModel: MainViewModel
     private let disposeBag = DisposeBag()
 
     @IBOutlet weak var addNewAlarmButton: UIBarButtonItem!
-    @IBOutlet weak var alarmTableView: UITableView! {
-        didSet {
-            //alarmTableView.delegate = self
-            //alarmTableView.dataSource = self
-            let nib = UINib(nibName: Const.alarmTableViewCellNibName, bundle: nil)
-            alarmTableView.register(nib, forCellReuseIdentifier: Const.alarmTableViewCellReuseIdentifier)
-        }
-    }
+    @IBOutlet weak var alarmTableView: UITableView!
     
     init(viewModel: MainViewModel){
         self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        let nib = UINib(nibName: Const.alarmTableViewCellNibName, bundle: nil)
+        alarmTableView.register(nib, forCellReuseIdentifier: Const.alarmTableViewCellReuseIdentifier)
+        bindToViewModel()
     }
     
     private func bindToViewModel() {
@@ -56,52 +56,12 @@ class ViewController: UIViewController, AlarmTableViewCellDelegate {
         tappedSwitch
             .bind(to: viewModel.inputs.tappedSwitchInAlarmTableViewCell)
             .disposed(by: disposeBag)
+        
+        viewModel.outputs.alarms
+            .drive(alarmTableView.rx.items(cellIdentifier: Const.alarmTableViewCellReuseIdentifier, cellType: AlarmTableViewCell.self)) { (row, alarm, cell) in
+                cell.setup(index: row, name: alarm.name, ringTiming: alarm.ringTiming, isRepeated: alarm.isRepeated, isRingable: alarm.isRingable)
+                cell.delegate = self
+            }
+            .disposed(by: disposeBag)
     }
 }
-
-/*
-extension ViewController: UITableViewDelegate {
-    
-}
-
-extension ViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfAlarms
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return presenter.alarmTableViewCellForRowAt(indexPath: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectAlarmTableViewCell(indexPath: indexPath)
-    }
-}
-
-extension ViewController: AlarmTableViewCellDelegate {
-    func tappedSwitchInCell(isOn: Bool, index: Int) {
-        presenter.tappedSwitchInAlarmTableViewCell(isOn: isOn, index: index)
-    }
-}
-
-extension ViewController: PresenterOutput {
-    func createAlarmTableViewCell(indexPath: IndexPath, name: String, ringTiming: DateComponents, isRepeated: Bool, isRingable: Bool) -> AlarmTableViewCell {
-        let cell = alarmTableView.dequeueReusableCell(withIdentifier: Const.alarmTableViewCellNibName, for: indexPath) as! AlarmTableViewCell
-        cell.setup(indexPath: indexPath, name: name, ringTiming: ringTiming, isRepeated: isRepeated, isRingable: isRingable)
-        cell.delegate = self
-        return cell
-    }
-    
-    func transitionEditAlarmView(name: String, note: String, ringTiming: DateComponents, isRepeated: Bool) {
-        let editAlarmViewController = EditAlarmViewController(nibName: "EditAlarmViewController", bundle: nil)
-        //editAlarmViewController.setup(name: name, note: note, ringTiming: ringTiming, isRepeated: isRepeated)
-        self.navigationController?.pushViewController(editAlarmViewController, animated: true)
-    }
-    
-    func transitionNewEditAlarmView() {
-        let editAlarmViewController = EditAlarmViewController(nibName: "EditAlarmViewController", bundle: nil)
-        self.navigationController?.pushViewController(editAlarmViewController, animated: true)
-    }
-}
-*/
