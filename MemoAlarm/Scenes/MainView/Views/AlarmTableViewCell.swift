@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol AlarmTableViewCellDelegate {
-    func tappedSwitchInCell(isOn: Bool, index: Int)
+    var tappedSwitch: PublishRelay<(Bool,IndexPath)> { get }
 }
 
 class AlarmTableViewCell: UITableViewCell {
@@ -17,8 +19,9 @@ class AlarmTableViewCell: UITableViewCell {
     @IBOutlet weak var alarmNameLabel: UILabel!
     @IBOutlet weak var alarmTimeLabel: UILabel!
     @IBOutlet weak var repeatDateLabel: UILabel!
-    var index: Int!
+    var indexPath: IndexPath!
     var delegate: AlarmTableViewCellDelegate!
+    private let disposeBag = DisposeBag()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,14 +29,14 @@ class AlarmTableViewCell: UITableViewCell {
     }
     
     func setup(indexPath: IndexPath, name: String, ringTiming: DateComponents, isRepeated: Bool, isRingable: Bool) {
-        index = indexPath.row
+        self.indexPath = indexPath
         alarmSetSwitch.setOn(isRingable, animated: false)
         alarmNameLabel.text = name
         alarmTimeLabel.text = "\(ringTiming.hour!)" + ":" + String(format: "%02d", ringTiming.minute!)
         repeatDateLabel.text = isRepeated ? "繰り返しあり" : "繰り返しなし"
-    }
-    
-    @IBAction func tapped(_ sender: UISwitch) {
-        delegate.tappedSwitchInCell(isOn: sender.isOn, index: index)
+        alarmSetSwitch.rx.isOn
+            .map({ ($0,indexPath) })
+            .bind(to: delegate.tappedSwitch)
+            .disposed(by: disposeBag)
     }
 }

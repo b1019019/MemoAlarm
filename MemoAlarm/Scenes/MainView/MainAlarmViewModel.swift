@@ -10,9 +10,9 @@ import RxSwift
 import RxCocoa
 
 protocol MainViewModelInputs: AnyObject {
-    var tappedSwitchInAlarmTableViewCell: PublishRelay<(Bool,Int)> { get }
+    var tappedSwitchInAlarmTableViewCell: PublishRelay<(Bool,IndexPath)> { get }
     var tappedButtonMakeNewAlarm: PublishRelay<Void> { get }
-    var tappedAlarmTableViewCell: PublishRelay<Int> { get }
+    var tappedAlarmTableViewCell: PublishRelay<IndexPath> { get }
     var ready: PublishRelay<Void> { get }
  }
 
@@ -30,9 +30,9 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
     var outputs: MainViewModelOutputs { return self }
     
     // MARK: - Input
-    let tappedSwitchInAlarmTableViewCell = PublishRelay<(Bool, Int)>()
+    let tappedSwitchInAlarmTableViewCell = PublishRelay<(Bool, IndexPath)>()
     let tappedButtonMakeNewAlarm = PublishRelay<Void>()
-    let tappedAlarmTableViewCell = PublishRelay<Int>()
+    let tappedAlarmTableViewCell = PublishRelay<IndexPath>()
     let ready = PublishRelay<Void>()
     
     // MARK: - OutPut
@@ -55,14 +55,13 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         let alarmsChangedRingable = tappedSwitchInAlarmTableViewCell
             .withLatestFrom(alarms) { (pair,alarms) -> [Alarm] in
                 let newRingable = pair.0
-                let index = pair.1
+                let index = pair.1.row
                 alarms[index].isRingable = newRingable
                 return alarms
             }.asDriver(onErrorJustReturn: [])
         
         let alarms = Driver.merge(alarmsInitialSet,alarmsChangedRingable)
         
-        //今のreposからwithLatestFromを用いて値を持ってくる。その値でnavigator.toEditを行う
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
                 navigator.navigateToMakeNewAlarmScreen()
@@ -70,7 +69,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             .disposed(by: disposeBag)
                 
         tappedAlarmTableViewCell.withLatestFrom(alarms) { index, alarms in
-            return alarms[index]
+            return alarms[index.row]
         }.asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
             .drive(onNext: { alarm in navigator.navigateToEditAlarmScreen(alarm: alarm) })
             .disposed(by: disposeBag)

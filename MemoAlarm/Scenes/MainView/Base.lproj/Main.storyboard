@@ -39,6 +39,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addNewAlarmButton" destination="ydX-le-Yy4" id="TYz-mh-TVi"/>
                         <outlet property="alarmTableView" destination="zAk-sS-B5Z" id="nAh-du-WPd"/>
                     </connections>
                 </viewController>

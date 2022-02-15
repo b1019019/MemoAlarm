@@ -6,40 +6,60 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class ViewController: UIViewController {
-    
+class ViewController: UIViewController, AlarmTableViewCellDelegate {
+
     private struct Const {
         static let alarmTableViewCellNibName = "AlarmTableViewCell"
         static let alarmTableViewCellReuseIdentifier = "AlarmTableViewCell"
         static let numberOfRowsInSection = 20
     }
     
-    private var presenter: PresenterInput!
+    var tappedSwitch = PublishRelay<(Bool, IndexPath)>()
+    
+    private var viewModel: MainViewModel
+    private let disposeBag = DisposeBag()
 
+    @IBOutlet weak var addNewAlarmButton: UIBarButtonItem!
     @IBOutlet weak var alarmTableView: UITableView! {
         didSet {
-            alarmTableView.delegate = self
-            alarmTableView.dataSource = self
+            //alarmTableView.delegate = self
+            //alarmTableView.dataSource = self
             let nib = UINib(nibName: Const.alarmTableViewCellNibName, bundle: nil)
             alarmTableView.register(nib, forCellReuseIdentifier: Const.alarmTableViewCellReuseIdentifier)
         }
     }
     
-    override func viewDidLoad() {
+    init(viewModel: MainViewModel){
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindToViewModel() {
+        rx.viewWillAppear
+            .bind(to: viewModel.inputs.ready)
+            .disposed(by: disposeBag)
         
+        alarmTableView.rx.itemSelected
+            .bind(to: viewModel.inputs.tappedAlarmTableViewCell)
+            .disposed(by: disposeBag)
+        
+        addNewAlarmButton.rx.tap
+            .bind(to: viewModel.inputs.tappedButtonMakeNewAlarm)
+            .disposed(by: disposeBag)
+        
+        tappedSwitch
+            .bind(to: viewModel.inputs.tappedSwitchInAlarmTableViewCell)
+            .disposed(by: disposeBag)
     }
-
-    @IBAction func tappedAddCellButton(_ sender: UIBarButtonItem) {
-        presenter.tappedButtonMakeNewAlarm()
-    }
-    
-    func inject(presenter: PresenterInput) {
-        self.presenter = presenter
-    }
-    
 }
 
+/*
 extension ViewController: UITableViewDelegate {
     
 }
@@ -84,3 +104,4 @@ extension ViewController: PresenterOutput {
         self.navigationController?.pushViewController(editAlarmViewController, animated: true)
     }
 }
+*/
