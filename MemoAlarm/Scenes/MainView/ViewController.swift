@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ViewController: UIViewController, AlarmTableViewCellDelegate {
+final class ViewController: UIViewController, AlarmTableViewCellDelegate {
 
     private struct Const {
         static let alarmTableViewCellNibName = "AlarmTableViewCell"

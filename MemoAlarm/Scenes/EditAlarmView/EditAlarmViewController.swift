@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class EditAlarmViewController: UIViewController {
 
@@ -14,54 +16,46 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var editRepeatDatesView: UIView!
     @IBOutlet weak var displayRepeatDatesLabel: UILabel!
     @IBOutlet weak var editNoteTextView: UITextView!
-    var editAlarmPresenterInput: EditAlarmPresenterInput!
-    var alarm: Alarm!
+
+    private var viewModel: EditAlarmViewModel
+    private let disposeBag = DisposeBag()
+    
+    init(viewModel: EditAlarmViewModel){
+        self.viewModel = viewModel
+        self.editRingTimingDatePicker.calendar = GlobalConst.calendar
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        editNameTextField.text = alarm.name
-        editRingTimingDatePicker.date = GlobalConst.calendar.date(from: alarm.ringTiming)!
-        editRingTimingDatePicker.calendar = GlobalConst.calendar
-        displayRepeatDatesLabel.text = alarm.isRepeated ? "あり" : "なし"
-        editNoteTextView.text = alarm.note
-        // Do any additional setup after loading the view.
+        bindToViewModel()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        editAlarmPresenterInput.viewWillDisappear(name: editNameTextField.text ?? "", note: editNoteTextView.text, pickerDate: editRingTimingDatePicker.date)
-    }
-
-    @IBAction func tappedRepeatDatesView(_ sender: UIButton) {
-        editAlarmPresenterInput.tappedButtonChangeIsRepeated()
-    }
-    
-    func inject(presenter: EditAlarmPresenterInput) {
-        self.editAlarmPresenterInput = presenter
-    }
-    
-}
-
-extension EditAlarmViewController: EditAlarmPresenterOutput {
-    func reloadAlarmTableView() {
-        if let viewController = navigationController?.viewControllers[0] as? ViewController {
-            viewController.alarmTableView.reloadData()
-        }
-    }
-    
-    func setup(alarm: Alarm) {
-        self.alarm = alarm
-
-    }
-    
-    func transitionMainView() {
-        if let viewController = navigationController?.viewControllers[0] as? ViewController {
-            viewController.alarmTableView.reloadData()
-        }
+    private func bindToViewModel() {
+        rx.viewWillAppear
+            .bind(to: viewModel.inputs.ready)
+            .disposed(by: disposeBag)
         
+        rx.viewWillDisappear
+        //ViewModelで行うべき。こちらからは引数を送るのみにして、あちらでAlarmModelに組み立てるべき
+            .map({ [weak self] in
+                return Alarm(name: self?.editNameTextField.text ?? "", note: self?.editNoteTextView.text ?? "", ringTime: GlobalConst.calendar.dateComponents([.hour,.minute], from: self?.editRingTimingDatePicker.date ?? Date()), isRepeated: true, isRingable: true)
+            })
+            .bind(to: viewModel.inputs.inputAlarm)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.editingAlarm
+            .drive(onNext: { [weak self] alarm in
+                self?.editNameTextField.rx.text.onNext(alarm.name)
+                self?.editRingTimingDatePicker.rx.date.onNext(GlobalConst.calendar.date(from: alarm.ringTiming) ?? Date())
+                self?.displayRepeatDatesLabel.rx.text.onNext(alarm.note)
+                self?.editNoteTextView.rx.text.onNext(alarm.note)
+            })
+            .disposed(by: disposeBag)
     }
-    
-    func changeTextButtonChangeIsRepeated(text: String) {
-        displayRepeatDatesLabel.text = text
-    }
+        
     
 }

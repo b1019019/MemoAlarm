@@ -6,3 +6,20 @@
 //
 
 import Foundation
+import UIKit
+
+protocol EditViewNavigatable {
+    func navigateToEditScreen()
+}
+
+final class EditVIewNavigator: EditViewNavigatable {
+    private let navigationController: UINavigationController
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
+    func navigateToEditScreen() {
+        navigationController.popViewController(animated: true)
+    }
+}
