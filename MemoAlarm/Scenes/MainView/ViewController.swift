@@ -19,7 +19,7 @@ final class ViewController: UIViewController, AlarmTableViewCellDelegate {
     
     var tappedSwitch = PublishRelay<(Bool, Int)>()
     
-    private var viewModel: MainViewModel
+    var viewModel: MainViewModel!
     private let disposeBag = DisposeBag()
 
     @IBOutlet weak var addNewAlarmButton: UIBarButtonItem!
