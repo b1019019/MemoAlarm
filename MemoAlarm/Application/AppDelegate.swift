@@ -15,15 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]){ (granted, _) in
-            if granted {
-                UNUserNotificationCenter.current().delegate = self
-            }
-        }
-        
         let newWindow = UIWindow(frame: UIScreen.main.bounds)
         self.window = newWindow
-        Router.showRoot(window: window)
+        App.shared.startInterface(in: newWindow)
         
         return true
     }
@@ -45,28 +39,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         print("terminate!!")
     }
-
-
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate{
-   
-   func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-       completionHandler([.banner, .list, .sound])
-       var viewController = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
-
-       for e in viewController.viewControllers {
-           if let v = e as? ViewController {
-               v.alarmTableView.reloadData()
-           } else {
-               print(e)
-           }
-       }
-       //vc.alarmTableView.reloadData()
-       
-   }
-   
-   func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-       completionHandler()
-   }
 }

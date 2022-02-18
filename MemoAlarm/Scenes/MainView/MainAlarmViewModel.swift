@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 protocol MainViewModelInputs: AnyObject {
     var tappedSwitchInAlarmTableViewCell: PublishRelay<(Bool,Int)> { get }
@@ -62,7 +63,32 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 return alarms
             }.asDriver(onErrorJustReturn: [])
         
-        alarms = Driver.merge(alarmsInitialSet,alarmsChangedRingable)
+        //willPresentを受け取ったときに行う行動：アラーム通知削除、データベースのRingableをfalseに
+        let alarmNotificationWillPresent = notificationManager.willPresent
+            .withLatestFrom(alarms) { (id, alarms) -> [Alarm] in
+                let newAlarms = alarms
+                newAlarms.forEach { alarm in
+                    if alarm.id == id {
+                        notificationManager.releaseNotification(alarm: alarm)
+                        alarm.isRingable = false
+                    }
+                }
+                return newAlarms
+            }.asDriver(onErrorJustReturn: [])
+        
+        let notificationDidReceive = notificationManager.didReceive
+            .withLatestFrom(alarms) { (id, alarms) -> [Alarm] in
+                let newAlarms = alarms
+                newAlarms.forEach { alarm in
+                    if alarm.id == id {
+                        notificationManager.releaseNotification(alarm: alarm)
+                        alarm.isRingable = false
+                    }
+                }
+                return newAlarms
+            }.asDriver(onErrorJustReturn: [])
+        
+        alarms = Driver.merge(alarmsInitialSet, alarmsChangedRingable, alarmNotificationWillPresent, notificationDidReceive)
         
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
@@ -75,5 +101,6 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         }.asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
             .drive(onNext: { alarm in navigator.navigateToEditAlarmScreen(alarm: alarm) })
             .disposed(by: disposeBag)
+        
     }
 }
