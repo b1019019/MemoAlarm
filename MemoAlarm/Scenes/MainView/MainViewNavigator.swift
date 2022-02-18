@@ -13,7 +13,7 @@ protocol MainViewNavigatable {
     func navigateToMakeNewAlarmScreen()
 }
 
-final class MainVIewNavigator: MainViewNavigatable {
+final class MainViewNavigator: MainViewNavigatable {
     private let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
