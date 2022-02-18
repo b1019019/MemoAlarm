@@ -16,8 +16,10 @@ final class App {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigationVC = storyboard.instantiateInitialViewController() as! UINavigationController
         let viewController = navigationVC.viewControllers[0] as! ViewController
-        let mainViewModel = MainViewModel(database: UserDefaultsDatabase(), notificationManager: UserNotificationManager(), navigator: MainViewNavigator(navigationVC))
+        let mainViewModel = MainViewModel(database: UserDefaultsDatabase(), notificationManager: UserNotificationManager(), navigator: MainViewNavigator(navigationController: navigationVC))
+        viewController.viewModel = mainViewModel
         
-        
+        window.rootViewController = navigationVC
+        window.makeKeyAndVisible()
     }
 }
