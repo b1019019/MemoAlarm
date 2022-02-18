@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3A33481B2779DA4200F71D3A /* GlobalConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33481A2779DA4200F71D3A /* GlobalConst.swift */; };
 		3A4385AB2789D199002F7022 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4385AA2789D199002F7022 /* Alarm.swift */; };
-		3A4385B1278A8B39002F7022 /* EditAlarmPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4385B0278A8B39002F7022 /* EditAlarmPresenter.swift */; };
 		3A4385B4278AE42C002F7022 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4385B3278AE42C002F7022 /* Router.swift */; };
 		3A4385B6278B209A002F7022 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4385B5278B2099002F7022 /* SceneDelegate.swift */; };
 		3AAC6530274F7B0300660BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC652F274F7B0300660BFD /* AppDelegate.swift */; };
@@ -35,7 +34,6 @@
 		19D2CAA4FE6AD76768AFAFC2 /* Pods-MemoAlarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoAlarm.debug.xcconfig"; path = "Target Support Files/Pods-MemoAlarm/Pods-MemoAlarm.debug.xcconfig"; sourceTree = "<group>"; };
 		3A33481A2779DA4200F71D3A /* GlobalConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
 		3A4385AA2789D199002F7022 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
-		3A4385B0278A8B39002F7022 /* EditAlarmPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmPresenter.swift; sourceTree = "<group>"; };
 		3A4385B3278AE42C002F7022 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3A4385B5278B2099002F7022 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3AAC652C274F7B0300660BFD /* MemoAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,8 +116,7 @@
 		3AAC652E274F7B0300660BFD /* MemoAlarm */ = {
 			isa = PBXGroup;
 			children = (
-				3AAC652F274F7B0300660BFD /* AppDelegate.swift */,
-				3A4385B5278B2099002F7022 /* SceneDelegate.swift */,
+				3ABDB79927BF38A600659EC1 /* Application */,
 				3A33481A2779DA4200F71D3A /* GlobalConst.swift */,
 				3A4385A92789D17B002F7022 /* Model */,
 				3ABDB78527BA171B00659EC1 /* Dependencies */,
@@ -167,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				3ABDB79227BA26E500659EC1 /* EditAlarmViewModel.swift */,
-				3A4385B0278A8B39002F7022 /* EditAlarmPresenter.swift */,
 				3AE430302779A46F00E80B7A /* EditAlarmViewController.swift */,
 				3AE430312779A46F00E80B7A /* EditAlarmViewController.xib */,
 				3ABDB78E27BA243200659EC1 /* EditAlarmViewNavigator.swift */,
@@ -190,6 +186,15 @@
 				3ABDB79727BA4ACE00659EC1 /* UIViewController+Rx.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		3ABDB79927BF38A600659EC1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				3AAC652F274F7B0300660BFD /* AppDelegate.swift */,
+				3A4385B5278B2099002F7022 /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		E88EC024E74F257C3AE464A0 /* Pods */ = {
@@ -322,7 +327,6 @@
 				3ABDB78927BA198D00659EC1 /* NotificationManager.swift in Sources */,
 				3ABDB78727BA176500659EC1 /* Database.swift in Sources */,
 				3A4385AB2789D199002F7022 /* Alarm.swift in Sources */,
-				3A4385B1278A8B39002F7022 /* EditAlarmPresenter.swift in Sources */,
 				3ABDB79127BA244A00659EC1 /* MainViewNavigator.swift in Sources */,
 				3AE430322779A46F00E80B7A /* EditAlarmViewController.swift in Sources */,
 				3ABDB79327BA26E500659EC1 /* EditAlarmViewModel.swift in Sources */,

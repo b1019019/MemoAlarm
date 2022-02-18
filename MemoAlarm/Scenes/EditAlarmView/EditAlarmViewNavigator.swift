@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol EditViewNavigatable {
-    func navigateToEditScreen()
+    func navigateToMainScreen()
 }
 
 final class EditVIewNavigator: EditViewNavigatable {
@@ -19,7 +19,7 @@ final class EditVIewNavigator: EditViewNavigatable {
         self.navigationController = navigationController
     }
     
-    func navigateToEditScreen() {
+    func navigateToMainScreen() {
         navigationController.popViewController(animated: true)
     }
 }

@@ -5,6 +5,7 @@
 //  Created by 山田純平 on 2022/01/09.
 //
 
+/*
 import Foundation
 import UIKit
 
@@ -39,3 +40,4 @@ class Router {
         fromVC.navigationController?.pushViewController(editAlarmViewController, animated: true)
     }
 }
+*/

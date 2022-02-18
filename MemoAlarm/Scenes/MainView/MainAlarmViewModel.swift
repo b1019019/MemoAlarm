@@ -48,6 +48,8 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         self.notificationManager = notificationManager
         self.navigator = navigator
         
+        alarms = PublishRelay<[Alarm]>().asDriver(onErrorJustReturn: [])
+        
         let alarmsInitialSet = ready.map {
             return try database.fetchAlarms()
         }.asDriver(onErrorJustReturn: [])
@@ -60,7 +62,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 return alarms
             }.asDriver(onErrorJustReturn: [])
         
-        let alarms = Driver.merge(alarmsInitialSet,alarmsChangedRingable)
+        alarms = Driver.merge(alarmsInitialSet,alarmsChangedRingable)
         
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
