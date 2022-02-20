@@ -12,7 +12,7 @@ protocol EditViewNavigatable {
     func navigateToMainScreen()
 }
 
-final class EditVIewNavigator: EditViewNavigatable {
+final class EditViewNavigator: EditViewNavigatable {
     private let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {

@@ -49,6 +49,9 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         self.notificationManager = notificationManager
         self.navigator = navigator
         
+        let editedAlarm = PublishRelay<(Alarm, Int)>()
+        let addedAlarm = PublishRelay<Alarm>()
+        
         alarms = PublishRelay<[Alarm]>().asDriver(onErrorJustReturn: [])
         
         let alarmsInitialSet = ready.map {
@@ -62,6 +65,20 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 alarms[index].isRingable = newRingable
                 return alarms
             }.asDriver(onErrorJustReturn: [])
+        
+        let alarmsEdited = editedAlarm.withLatestFrom(alarms) { (alarmAndIndex ,alarms) -> [Alarm] in
+            var newAlarms = alarms
+            let alarm = alarmAndIndex.0
+            let index = alarmAndIndex.1
+            newAlarms[index] = alarm
+            return newAlarms
+        }.asDriver(onErrorJustReturn: [])
+        
+        let alarmsAdded = addedAlarm.withLatestFrom(alarms) { (alarm, alarms) -> [Alarm] in
+            var newAlarms = alarms
+            newAlarms.append(alarm)
+            return newAlarms
+        }.asDriver(onErrorJustReturn: [])
         
         //willPresentを受け取ったときに行う行動：アラーム通知削除、データベースのRingableをfalseに
         let alarmNotificationWillPresent = notificationManager.willPresent
@@ -98,18 +115,19 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 return alarms
             }.asDriver(onErrorJustReturn: [])
         
-        alarms = Driver.merge(alarmsInitialSet, alarmsChangedRingable, alarmNotificationWillPresent, notificationDidReceive, didBecome)
+        alarms = Driver.merge(alarmsInitialSet, alarmsChangedRingable, alarmsEdited, alarmsAdded, alarmNotificationWillPresent, notificationDidReceive, didBecome)
         
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
-                navigator.navigateToMakeNewAlarmScreen()
+                navigator.navigateToMakeNewAlarmScreen(resultAlarm: addedAlarm)
             })
             .disposed(by: disposeBag)
                 
         tappedAlarmTableViewCell.withLatestFrom(alarms) { index, alarms in
-            return alarms[index.row]
-        }.asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
-            .drive(onNext: { alarm in navigator.navigateToEditAlarmScreen(alarm: alarm) })
+            return (alarms[index.row], index.row)
+        }.asDriver(onErrorJustReturn: (Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false), -1))
+            .drive(onNext: { alarm, index in
+                navigator.navigateToEditAlarmScreen(alarm: alarm, index: index, resultAlarm: editedAlarm) })
             .disposed(by: disposeBag)
         
         //例外をどう処理するか

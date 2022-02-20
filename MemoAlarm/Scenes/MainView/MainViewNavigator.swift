@@ -7,10 +7,11 @@
 
 import Foundation
 import UIKit
+import RxRelay
 
 protocol MainViewNavigatable {
-    func navigateToEditAlarmScreen(alarm: Alarm)
-    func navigateToMakeNewAlarmScreen()
+    func navigateToEditAlarmScreen(alarm: Alarm, index: Int, resultAlarm: PublishRelay<(Alarm, Int)>)
+    func navigateToMakeNewAlarmScreen(resultAlarm: PublishRelay<Alarm>)
 }
 
 final class MainViewNavigator: MainViewNavigatable {
@@ -20,13 +21,21 @@ final class MainViewNavigator: MainViewNavigatable {
         self.navigationController = navigationController
     }
     
-    func navigateToEditAlarmScreen(alarm: Alarm) {
+    func navigateToEditAlarmScreen(alarm: Alarm, index: Int, resultAlarm: PublishRelay<(Alarm, Int)>) {
         //EditNavigator,ViewModel,ViewControllerを生成
+        let editViewNavigator = EditViewNavigator(navigationController: navigationController)
+        let editViewModel = EditAlarmViewModel(alarm: alarm, index: index, outputAlarm: resultAlarm)
+        let editViewController = EditAlarmViewController(viewModel: editViewModel)
         //navigationcontroller.showでViewControllerを指定して遷移
+        navigationController.pushViewController(editViewController, animated: true)
     }
     
-    func navigateToMakeNewAlarmScreen() {
+    func navigateToMakeNewAlarmScreen(resultAlarm: PublishRelay<Alarm>) {
         //EditNavigator,ViewModel,ViewControllerを生成
+        let editViewNavigator = EditViewNavigator(navigationController: navigationController)
+        let editViewModel = EditAlarmViewModel(outputAlarm: resultAlarm)
+        let editViewController = EditAlarmViewController(viewModel: editViewModel)
         //navigationcontroller.showでViewControllerを指定して遷移
+        navigationController.pushViewController(editViewController, animated: true)
     }
 }
