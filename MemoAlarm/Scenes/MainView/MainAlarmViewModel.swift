@@ -112,11 +112,13 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             .drive(onNext: { alarm in navigator.navigateToEditAlarmScreen(alarm: alarm) })
             .disposed(by: disposeBag)
         
-        
-        let willTerminate =  NotificationCenter.default.rx.notification(UIApplication.willTerminateNotification)
-            .withLatestFrom(alarms) { (_, alarms) in
-                try database.storeAlarms(alarms: alarms)
-                return []
-            }.asDriver(onErrorJustReturn: [])
+        //例外をどう処理するか
+        NotificationCenter.default.rx.notification(UIApplication.willTerminateNotification)
+            .withLatestFrom(alarms)
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { alarms in
+                try? database.storeAlarms(alarms: alarms)
+            })
+            .disposed(by: disposeBag)
     }
 }
