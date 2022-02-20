@@ -88,7 +88,17 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 return newAlarms
             }.asDriver(onErrorJustReturn: [])
         
-        alarms = Driver.merge(alarmsInitialSet, alarmsChangedRingable, alarmNotificationWillPresent, notificationDidReceive)
+        let didBecome = NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
+            .withLatestFrom(alarms) { (_, alarms) -> [Alarm] in
+                alarms.forEach { alarm in
+                    if alarm.isRingable && !notificationManager.existNotification(alarm: alarm) {
+                        alarm.isRingable = false
+                    }
+                }
+                return alarms
+            }.asDriver(onErrorJustReturn: [])
+        
+        alarms = Driver.merge(alarmsInitialSet, alarmsChangedRingable, alarmNotificationWillPresent, notificationDidReceive, didBecome)
         
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
@@ -102,5 +112,11 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             .drive(onNext: { alarm in navigator.navigateToEditAlarmScreen(alarm: alarm) })
             .disposed(by: disposeBag)
         
+        
+        let willTerminate =  NotificationCenter.default.rx.notification(UIApplication.willTerminateNotification)
+            .withLatestFrom(alarms) { (_, alarms) in
+                try database.storeAlarms(alarms: alarms)
+                return []
+            }.asDriver(onErrorJustReturn: [])
     }
 }
