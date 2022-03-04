@@ -19,20 +19,11 @@ final class ViewController: UIViewController, AlarmTableViewCellDelegate {
     
     var tappedSwitch = PublishRelay<(Bool, Int)>()
     
-    var viewModel: MainViewModel!
+    private var viewModel: MainViewModel!
     private let disposeBag = DisposeBag()
 
     @IBOutlet weak var addNewAlarmButton: UIBarButtonItem!
     @IBOutlet weak var alarmTableView: UITableView!
-    
-    init(viewModel: MainViewModel){
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         let nib = UINib(nibName: Const.alarmTableViewCellNibName, bundle: nil)
@@ -54,14 +45,30 @@ final class ViewController: UIViewController, AlarmTableViewCellDelegate {
             .disposed(by: disposeBag)
         
         tappedSwitch
+            .do(onNext: { v in///
+                print("tappedSwitch",v)
+            })
             .bind(to: viewModel.inputs.tappedSwitchInAlarmTableViewCell)
             .disposed(by: disposeBag)
         
         viewModel.outputs.alarms
             .drive(alarmTableView.rx.items(cellIdentifier: Const.alarmTableViewCellReuseIdentifier, cellType: AlarmTableViewCell.self)) { (row, alarm, cell) in
-                cell.setup(index: row, name: alarm.name, ringTiming: alarm.ringTiming, isRepeated: alarm.isRepeated, isRingable: alarm.isRingable)
+                //delegateの設定の複雑性をなくす
                 cell.delegate = self
+                cell.setup(index: row, name: alarm.name, ringTiming: alarm.ringTiming, isRepeated: alarm.isRepeated, isRingable: alarm.isRingable)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func addAlarm(alarm: Alarm) {
+        viewModel.addedAlarm = alarm
+    }
+    
+    func editAlarm(alarm: Alarm, index: Int) {
+        viewModel.editedAlarmAndIndex = (alarm, index)
+    }
+    
+    func setup(viewModel: MainViewModel) {
+        self.viewModel = viewModel
     }
 }

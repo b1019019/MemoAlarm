@@ -22,7 +22,6 @@ class EditAlarmViewController: UIViewController {
     
     init(viewModel: EditAlarmViewModel){
         self.viewModel = viewModel
-        self.editRingTimingDatePicker.calendar = GlobalConst.calendar
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,6 +30,7 @@ class EditAlarmViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        self.editRingTimingDatePicker.calendar = GlobalConst.calendar
         bindToViewModel()
     }
     
@@ -42,7 +42,7 @@ class EditAlarmViewController: UIViewController {
         rx.viewWillDisappear
         //ViewModelで行うべき。こちらからは引数を送るのみにして、あちらでAlarmModelに組み立てるべき
             .map({ [weak self] in
-                return Alarm(name: self?.editNameTextField.text ?? "", note: self?.editNoteTextView.text ?? "", ringTime: GlobalConst.calendar.dateComponents([.hour,.minute], from: self?.editRingTimingDatePicker.date ?? Date()), isRepeated: true, isRingable: true)
+                return Alarm(name: self?.editNameTextField.text ?? "", note: self?.editNoteTextView.text ?? "", ringTime: GlobalConst.calendar.dateComponents([.hour,.minute], from: self?.editRingTimingDatePicker.date ?? Date()), isRepeated: false, isRingable: false)
             })
             .bind(to: viewModel.inputs.inputAlarm)
             .disposed(by: disposeBag)

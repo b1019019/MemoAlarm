@@ -44,41 +44,76 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
     private var navigator: MainViewNavigatable
     private let disposeBag = DisposeBag()
     
+    var addedAlarm: Alarm?
+    var editedAlarmAndIndex: (Alarm,Int)?
+    
     init(database: DatabaseIO, notificationManager: NotificationManager, navigator: MainViewNavigatable){
         self.database = database
         self.notificationManager = notificationManager
         self.navigator = navigator
         
-        let editedAlarm = PublishRelay<(Alarm, Int)>()
-        let addedAlarm = PublishRelay<Alarm>()
+        let behaviorAlarm = BehaviorRelay<[Alarm]>(value: [])
+        alarms = behaviorAlarm.asDriver()
         
-        alarms = PublishRelay<[Alarm]>().asDriver(onErrorJustReturn: [])
+        alarms.do(onNext: {_ in 
+            print("alarmsOn")
+        })
         
-        let alarmsInitialSet = ready.map {
-            return try database.fetchAlarms()
-        }.asDriver(onErrorJustReturn: [])
+        //alarmsの初期値がないなら、フェッチする。初期値があったら、addedAlarm,editedAlarmを確認し、編集する。Alarm = nilしておく
+        
+        /*ready.subscribe(onNext: { [weak self] in
+            print("addAndEditAlarm",self!.addedAlarm,self!.editedAlarmAndIndex)
+            debugalarms.accept([])
+        }).disposed(by: disposeBag)*/
+        
+        ready.withLatestFrom(alarms) { _, alarms in
+            return alarms
+        }.subscribe(onNext: { alarms in
+            print("alarms",alarms)
+        }).disposed(by: disposeBag)
+        ///
+        
+        let initialSet = PublishRelay<Void>()
+        
+        let alarmsInitialSet = initialSet.map { (_) -> [Alarm] in
+            print("black")
+            return behaviorAlarm.value
+            //return try database.fetchAlarms()
+        }.share()
         
         let alarmsChangedRingable = tappedSwitchInAlarmTableViewCell
-            .withLatestFrom(alarms) { (pair,alarms) -> [Alarm] in
+            .withLatestFrom(behaviorAlarm) { (pair,alarms) -> [Alarm] in//
                 let newRingable = pair.0
                 let index = pair.1
                 alarms[index].isRingable = newRingable
                 return alarms
-            }.asDriver(onErrorJustReturn: [])
+            }.share().debug()
         
-        let alarmsEdited = editedAlarm.withLatestFrom(alarms) { (alarmAndIndex ,alarms) -> [Alarm] in
-            var newAlarms = alarms
-            let alarm = alarmAndIndex.0
-            let index = alarmAndIndex.1
-            newAlarms[index] = alarm
-            return newAlarms
-        }.asDriver(onErrorJustReturn: [])
+        let alarmsEdited = ready.withLatestFrom(behaviorAlarm) { [weak self] (_, alarms) -> [Alarm] in
+            print("alarmEdited")
+            if let alarmAndIndex = self!.editedAlarmAndIndex {
+                var newAlarms = alarms
+                let element = alarmAndIndex.0
+                let index = alarmAndIndex.1
+                newAlarms[index] = element
+                self!.editedAlarmAndIndex = nil
+                return newAlarms
+            } else {
+                return alarms
+            }
+        }.share().debug()
         
-        let alarmsAdded = addedAlarm.withLatestFrom(alarms) { (alarm, alarms) -> [Alarm] in
-            var newAlarms = alarms
-            newAlarms.append(alarm)
-            return newAlarms
-        }.asDriver(onErrorJustReturn: [])
+        let alarmsAdded = ready.withLatestFrom(behaviorAlarm) { [weak self] (_, alarms) -> [Alarm] in
+            print("added!!")
+            if let alarm = self!.addedAlarm {
+                var newAlarms = alarms
+                newAlarms.append(alarm)
+                self!.addedAlarm = nil
+                return newAlarms
+            } else {
+                return alarms
+            }
+        }.share()
         
         //willPresentを受け取ったときに行う行動：アラーム通知削除、データベースのRingableをfalseに
         let alarmNotificationWillPresent = notificationManager.willPresent
@@ -91,7 +126,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                     }
                 }
                 return newAlarms
-            }.asDriver(onErrorJustReturn: [])
+            }.share()
         
         let notificationDidReceive = notificationManager.didReceive
             .withLatestFrom(alarms) { (id, alarms) -> [Alarm] in
@@ -103,23 +138,32 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                     }
                 }
                 return newAlarms
-            }.asDriver(onErrorJustReturn: [])
+            }.share()
         
         let didBecome = NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
             .withLatestFrom(alarms) { (_, alarms) -> [Alarm] in
                 alarms.forEach { alarm in
+                    print("didBecome")
                     if alarm.isRingable && !notificationManager.existNotification(alarm: alarm) {
                         alarm.isRingable = false
                     }
                 }
                 return alarms
-            }.asDriver(onErrorJustReturn: [])
+            }.share()
         
-        alarms = Driver.merge(alarmsInitialSet, alarmsChangedRingable, alarmsEdited, alarmsAdded, alarmNotificationWillPresent, notificationDidReceive, didBecome)
+        let alarms = Observable.merge(alarmsInitialSet, alarmsChangedRingable, alarmsEdited, alarmsAdded, alarmNotificationWillPresent, notificationDidReceive, didBecome)
+        
+        alarms.subscribe(onNext: {alarm in
+            print("alarmsOnNext")
+        })
+        
+        alarms.do(onNext: {alarm in 
+            print("alarmsOnNextBindBehavior")
+        }).bind(to: behaviorAlarm).disposed(by: disposeBag)
         
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
-                navigator.navigateToMakeNewAlarmScreen(resultAlarm: addedAlarm)
+                navigator.navigateToMakeNewAlarmScreen()
             })
             .disposed(by: disposeBag)
                 
@@ -127,16 +171,20 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             return (alarms[index.row], index.row)
         }.asDriver(onErrorJustReturn: (Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false), -1))
             .drive(onNext: { alarm, index in
-                navigator.navigateToEditAlarmScreen(alarm: alarm, index: index, resultAlarm: editedAlarm) })
+                navigator.navigateToEditAlarmScreen(alarm: alarm, index: index)
+            })
             .disposed(by: disposeBag)
         
         //例外をどう処理するか
-        NotificationCenter.default.rx.notification(UIApplication.willTerminateNotification)
+        NotificationCenter.default.rx.notification(UIApplication.didEnterBackgroundNotification)
             .withLatestFrom(alarms)
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { alarms in
                 try? database.storeAlarms(alarms: alarms)
             })
             .disposed(by: disposeBag)
+        
+        
+        initialSet.accept(())
     }
 }

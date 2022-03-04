@@ -42,9 +42,6 @@
                             <constraint firstAttribute="height" constant="31" id="C1u-MR-j0e"/>
                             <constraint firstAttribute="width" constant="51" id="sn7-7z-QH2"/>
                         </constraints>
-                        <connections>
-                            <action selector="tapped:" destination="KGk-i7-Jjw" eventType="valueChanged" id="7Mm-OV-ii5"/>
-                        </connections>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeV-y3-J9c">
                         <rect key="frame" x="83" y="13" width="163" height="34"/>

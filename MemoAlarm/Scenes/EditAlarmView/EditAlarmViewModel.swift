@@ -37,26 +37,27 @@ final class EditAlarmViewModel: EditAlarmViewModelType, EditAlarmViewModelInputs
     
     private let disposeBag = DisposeBag()
     
-    init(alarm: Alarm, index: Int, outputAlarm: PublishRelay<(Alarm, Int)>) {
+    init(alarm: Alarm, index: Int, navigator: EditViewNavigator) {
         
         editingAlarm = ready
             .map({ alarm })
             .asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
         inputAlarm
             .subscribe(onNext:{ alarm in
-                outputAlarm.accept((alarm, index))
+                navigator.navigateToMainScreen(editedAlarm: alarm, index: index)
             })
             .disposed(by: disposeBag)
     }
     
-    init(outputAlarm: PublishRelay<Alarm>) {
+    init(navigator: EditViewNavigator) {
         //共通化したい
         editingAlarm = ready
             .map({ Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false) })
             .asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
         inputAlarm
             .subscribe(onNext:{ alarm in
-                outputAlarm.accept(alarm)
+                print("acceptInputalarm")
+                navigator.navigateToMainScreen(addedAlarm: alarm)
             })
             .disposed(by: disposeBag)
     }

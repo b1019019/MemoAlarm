@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 protocol EditViewNavigatable {
-    func navigateToMainScreen()
+    func navigateToMainScreen(addedAlarm: Alarm)
+    func navigateToMainScreen(editedAlarm: Alarm, index: Int)
 }
 
 final class EditViewNavigator: EditViewNavigatable {
@@ -19,7 +20,15 @@ final class EditViewNavigator: EditViewNavigatable {
         self.navigationController = navigationController
     }
     
-    func navigateToMainScreen() {
+    func navigateToMainScreen(addedAlarm: Alarm) {
+        guard let mainViewController = navigationController.viewControllers[0] as? ViewController else { return }
+        mainViewController.addAlarm(alarm: addedAlarm)
+        navigationController.popViewController(animated: true)
+    }
+    
+    func navigateToMainScreen(editedAlarm: Alarm, index: Int) {
+        guard let mainViewController = navigationController.viewControllers[0] as? ViewController else { return }
+        mainViewController.editAlarm(alarm: editedAlarm, index: index)
         navigationController.popViewController(animated: true)
     }
 }

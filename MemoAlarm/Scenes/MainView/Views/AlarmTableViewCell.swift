@@ -21,7 +21,7 @@ class AlarmTableViewCell: UITableViewCell {
     @IBOutlet weak var repeatDateLabel: UILabel!
     var index: Int!
     var delegate: AlarmTableViewCellDelegate!
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,11 +32,21 @@ class AlarmTableViewCell: UITableViewCell {
         self.index = index
         alarmSetSwitch.setOn(isRingable, animated: false)
         alarmNameLabel.text = name
-        alarmTimeLabel.text = "\(ringTiming.hour!)" + ":" + String(format: "%02d", ringTiming.minute!)
+        alarmTimeLabel.text = "\(ringTiming.hour ?? 0)" + ":" + String(format: "%02d", ringTiming.minute ?? 0)
         repeatDateLabel.text = isRepeated ? "繰り返しあり" : "繰り返しなし"
-        alarmSetSwitch.rx.isOn
+        alarmSetSwitch.rx.value
             .map({ ($0,index) })
+            .share()
+            .skip(1)
+            .do(onNext: { v in
+                print("onNext",v)
+            } , onDispose: { print("onDispose") })
             .bind(to: delegate.tappedSwitch)
             .disposed(by: disposeBag)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
 }
