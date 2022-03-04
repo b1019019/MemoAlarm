@@ -14,7 +14,7 @@
                 <outlet property="displayRepeatDatesLabel" destination="UFw-ph-Z97" id="doQ-PN-Crz"/>
                 <outlet property="editNameTextField" destination="mbv-s5-km7" id="IXW-AB-auP"/>
                 <outlet property="editNoteTextView" destination="hNw-Fz-5yk" id="SEJ-6B-24l"/>
-                <outlet property="editRepeatDatesView" destination="cHF-6D-gWn" id="HQd-6t-hMT"/>
+                <outlet property="editRepeatDatesButton" destination="HLE-Tm-rLM" id="FZu-NG-Ij5"/>
                 <outlet property="editRingTimingDatePicker" destination="swc-1W-r0s" id="f8U-6a-0wN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -71,9 +71,6 @@
                             <rect key="frame" x="92" y="0.0" width="322" height="58"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title=""/>
-                            <connections>
-                                <action selector="tappedRepeatDatesView:" destination="-1" eventType="touchUpInside" id="Lwg-wd-icD"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>

@@ -55,30 +55,12 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         let behaviorAlarm = BehaviorRelay<[Alarm]>(value: [])
         alarms = behaviorAlarm.asDriver()
         
-        alarms.do(onNext: {_ in 
-            print("alarmsOn")
-        })
-        
-        //alarmsの初期値がないなら、フェッチする。初期値があったら、addedAlarm,editedAlarmを確認し、編集する。Alarm = nilしておく
-        
-        /*ready.subscribe(onNext: { [weak self] in
-            print("addAndEditAlarm",self!.addedAlarm,self!.editedAlarmAndIndex)
-            debugalarms.accept([])
-        }).disposed(by: disposeBag)*/
-        
-        ready.withLatestFrom(alarms) { _, alarms in
-            return alarms
-        }.subscribe(onNext: { alarms in
-            print("alarms",alarms)
-        }).disposed(by: disposeBag)
-        ///
-        
         let initialSet = PublishRelay<Void>()
         
         let alarmsInitialSet = initialSet.map { (_) -> [Alarm] in
-            print("black")
-            return behaviorAlarm.value
-            //return try database.fetchAlarms()
+            print("initialSet")
+            //return behaviorAlarm.value
+            return try database.fetchAlarms()
         }.share()
         
         let alarmsChangedRingable = tappedSwitchInAlarmTableViewCell

@@ -132,9 +132,6 @@ extension UserNotificationManager: NSObjectProtocol {
     }
     
     var description: String {
-        print("")
-        print("")
-        
         return ""
     }
 }
