@@ -33,6 +33,10 @@ class Alarm: NSObject, NSCoding {
         id = coder.decodeObject(forKey: "id") as! String
     }
     
+    func empty() -> Alarm {
+        return Alarm(name: "新しいアラーム", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false)
+    }
+    
     func encode(with coder: NSCoder) {
         coder.encode(self.name, forKey: "name")
         coder.encode(self.note, forKey: "note")
