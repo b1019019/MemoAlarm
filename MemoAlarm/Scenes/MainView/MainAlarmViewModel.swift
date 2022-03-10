@@ -68,6 +68,11 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 let newRingable = pair.0
                 let index = pair.1
                 alarms[index].isRingable = newRingable
+                if newRingable {
+                    notificationManager.setNotification(alarm: alarms[index])
+                } else {
+                    notificationManager.releaseNotification(alarm: alarms[index])
+                }
                 return alarms
             }.share().debug()
         
@@ -77,6 +82,12 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 var newAlarms = alarms
                 let element = alarmAndIndex.0
                 let index = alarmAndIndex.1
+                if alarms[index].isRingable && !element.isRingable {
+                    notificationManager.releaseNotification(alarm: alarms[index])
+                } else if !alarms[index].isRingable && element.isRingable {
+                    //alarmsに新しいAlarmを追加する、それはalarms[index]のIDが更新されることを意味する。alarms[index].idは古いIDで、更新されてしまうため、削除する際、参照できなくなってしまう。
+                    notificationManager.setNotification(alarm: element)
+                }
                 newAlarms[index] = element
                 self!.editedAlarmAndIndex = nil
                 return newAlarms
@@ -89,6 +100,9 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             print("added!!")
             if let alarm = self!.addedAlarm {
                 var newAlarms = alarms
+                if alarm.isRingable {
+                    notificationManager.setNotification(alarm: alarm)
+                }
                 newAlarms.append(alarm)
                 self!.addedAlarm = nil
                 return newAlarms

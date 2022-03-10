@@ -16,7 +16,8 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var editRepeatDatesButton: UIButton!
     @IBOutlet weak var displayRepeatDatesLabel: UILabel!
     @IBOutlet weak var editNoteTextView: UITextView!
-
+    @IBOutlet weak var setAlarmSwitch: UISwitch!
+    
     private var viewModel: EditAlarmViewModel
     private let disposeBag = DisposeBag()
     private var isRepeated = BehaviorRelay(value: false)
@@ -43,7 +44,7 @@ class EditAlarmViewController: UIViewController {
         rx.viewWillDisappear
         //ViewModelで行うべき。こちらからは引数を送るのみにして、あちらでAlarmModelに組み立てるべき
             .map({ [weak self] in
-                return Alarm(name: self?.editNameTextField.text ?? "", note: self?.editNoteTextView.text ?? "", ringTime: GlobalConst.calendar.dateComponents([.hour,.minute], from: self?.editRingTimingDatePicker.date ?? Date()), isRepeated: self!.isRepeated.value, isRingable: false)
+                return Alarm(name: self?.editNameTextField.text ?? "", note: self?.editNoteTextView.text ?? "", ringTime: GlobalConst.calendar.dateComponents([.hour,.minute], from: self?.editRingTimingDatePicker.date ?? Date()), isRepeated: self!.isRepeated.value, isRingable: self!.setAlarmSwitch.isOn)
             })
             .bind(to: viewModel.inputs.inputAlarm)
             .disposed(by: disposeBag)
@@ -71,6 +72,7 @@ class EditAlarmViewController: UIViewController {
                 self?.displayRepeatDatesLabel.rx.text.onNext(alarm.note)
                 self?.editNoteTextView.rx.text.onNext(alarm.note)
                 self?.isRepeated.accept(alarm.isRepeated)
+                self?.setAlarmSwitch.rx.isOn.onNext(alarm.isRingable)//
             })
             .disposed(by: disposeBag)
     }
