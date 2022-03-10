@@ -167,7 +167,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 
         tappedAlarmTableViewCell.withLatestFrom(alarms) { index, alarms in
             return (alarms.0[index.row], index.row)
-        }.asDriver(onErrorJustReturn: (Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false), -1))
+        }.asDriver(onErrorDriveWith: .empty())
             .drive(onNext: { alarm, index in
                 navigator.navigateToEditAlarmScreen(alarm: alarm, index: index)
             })
@@ -176,7 +176,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         //例外をどう処理するか
         NotificationCenter.default.rx.notification(UIApplication.didEnterBackgroundNotification)
             .withLatestFrom(alarms)
-            .asDriver(onErrorJustReturn: ([], false))
+            .asDriver(onErrorDriveWith: .empty())
             .drive(onNext: { alarms in
                 try? database.storeAlarms(alarms: alarms.0)
             })

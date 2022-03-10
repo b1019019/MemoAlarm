@@ -41,7 +41,7 @@ final class EditAlarmViewModel: EditAlarmViewModelType, EditAlarmViewModelInputs
         
         editingAlarm = ready
             .map({ alarm })
-            .asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
+            .asDriver(onErrorDriveWith: .empty())
         inputAlarm
             .subscribe(onNext:{ alarm in
                 navigator.navigateToMainScreen(editedAlarm: alarm, index: index)
@@ -53,7 +53,7 @@ final class EditAlarmViewModel: EditAlarmViewModelType, EditAlarmViewModelInputs
         //共通化したい
         editingAlarm = ready
             .map({ Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false) })
-            .asDriver(onErrorJustReturn: Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false))
+            .asDriver(onErrorDriveWith: .empty())
         inputAlarm
             .subscribe(onNext:{ alarm in
                 print("acceptInputalarm")
