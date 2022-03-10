@@ -58,14 +58,17 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         let initialSet = PublishRelay<Void>()
         
         let alarmsInitialSet = initialSet.map { (_) -> ([Alarm], Bool) in
-            print("initialSet")
-            //return behaviorAlarm.value
-            let fetchedAlarms = try database.fetchAlarms()
+            var fetchedAlarms: [Alarm]
+            do {
+                fetchedAlarms = try database.fetchAlarms()
+            } catch {
+                fetchedAlarms = []
+            }
             return (fetchedAlarms, true)
         }.share()
         
         let alarmsChangedRingable = tappedSwitchInAlarmTableViewCell
-            .withLatestFrom(behaviorAlarm) { (pair,alarms) -> ([Alarm], Bool) in//
+            .withLatestFrom(behaviorAlarm) { (pair,alarms) -> ([Alarm], Bool) in
                 let newRingable = pair.0
                 let index = pair.1
                 let alarms = alarms.0
@@ -79,7 +82,6 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             }.share().debug()
         
         let alarmsEdited = ready.withLatestFrom(behaviorAlarm) { [weak self] (_, alarms) -> ([Alarm], Bool) in
-            print("alarmEdited")
             if let alarmAndIndex = self!.editedAlarmAndIndex {
                 var newAlarms = alarms.0
                 let element = alarmAndIndex.0
@@ -99,7 +101,6 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         }.share().debug()
         
         let alarmsAdded = ready.withLatestFrom(behaviorAlarm) { [weak self] (_, alarms) -> ([Alarm], Bool) in
-            print("added!!")
             if let alarm = self!.addedAlarm {
                 var newAlarms = alarms.0
                 if alarm.isRingable {
@@ -141,7 +142,6 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         let didBecome = NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
             .withLatestFrom(alarms) { (_, alarms) -> ([Alarm], Bool) in
                 alarms.0.forEach { alarm in
-                    print("didBecome")
                     if alarm.isRingable && !notificationManager.existNotification(alarm: alarm) {
                         alarm.isRingable = false
                     }
@@ -151,13 +151,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
         
         let alarms = Observable.merge(alarmsInitialSet, alarmsChangedRingable, alarmsEdited, alarmsAdded, alarmNotificationWillPresent, notificationDidReceive, didBecome)
         
-        alarms.subscribe(onNext: {alarm in
-            print("alarmsOnNext")
-        })
-        
-        alarms.do(onNext: {alarm in 
-            print("alarmsOnNextBindBehavior")
-        }).bind(to: behaviorAlarm).disposed(by: disposeBag)
+        alarms.bind(to: behaviorAlarm).disposed(by: disposeBag)
         
         tappedButtonMakeNewAlarm
             .subscribe(onNext: {
@@ -173,7 +167,6 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             })
             .disposed(by: disposeBag)
         
-        //例外をどう処理するか
         NotificationCenter.default.rx.notification(UIApplication.didEnterBackgroundNotification)
             .withLatestFrom(alarms)
             .asDriver(onErrorDriveWith: .empty())

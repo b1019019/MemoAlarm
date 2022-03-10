@@ -38,9 +38,6 @@ class AlarmTableViewCell: UITableViewCell {
             .map({ ($0,index) })
             .share()
             .skip(1)
-            .do(onNext: { v in
-                print("onNext",v)
-            } , onDispose: { print("onDispose") })
             .bind(to: delegate.tappedSwitch)
             .disposed(by: disposeBag)
     }

@@ -52,11 +52,10 @@ final class EditAlarmViewModel: EditAlarmViewModelType, EditAlarmViewModelInputs
     init(navigator: EditViewNavigator) {
         //共通化したい
         editingAlarm = ready
-            .map({ Alarm(name: "", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false) })
+            .map({ Alarm.empty() })
             .asDriver(onErrorDriveWith: .empty())
         inputAlarm
             .subscribe(onNext:{ alarm in
-                print("acceptInputalarm")
                 navigator.navigateToMainScreen(addedAlarm: alarm)
             })
             .disposed(by: disposeBag)

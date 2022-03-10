@@ -45,9 +45,6 @@ final class ViewController: UIViewController, AlarmTableViewCellDelegate {
             .disposed(by: disposeBag)
         
         tappedSwitch
-            .do(onNext: { v in///
-                print("tappedSwitch",v)
-            })
             .bind(to: viewModel.inputs.tappedSwitchInAlarmTableViewCell)
             .disposed(by: disposeBag)
                 
@@ -55,7 +52,6 @@ final class ViewController: UIViewController, AlarmTableViewCellDelegate {
             .filter({ $0.1 })
             .map({ $0.0 })
             .drive(alarmTableView.rx.items(cellIdentifier: Const.alarmTableViewCellReuseIdentifier, cellType: AlarmTableViewCell.self)) { (row, alarm, cell) in
-                //delegateの設定の複雑性をなくす
                 cell.delegate = self
                 cell.setup(index: row, name: alarm.name, ringTiming: alarm.ringTiming, isRepeated: alarm.isRepeated, isRingable: alarm.isRingable)
             }

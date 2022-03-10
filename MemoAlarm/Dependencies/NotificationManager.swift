@@ -50,20 +50,10 @@ final class UserNotificationManager: NotificationManager {
                 print(error.localizedDescription)
             }
         }
-        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { scheduleNotifications in
-            scheduleNotifications.forEach { notification in
-                print(notification.content.subtitle)
-            }
-        })
     }
     
     func releaseNotification(alarm: Alarm) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [alarm.id])
-        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { scheduleNotifications in
-            scheduleNotifications.forEach { notification in
-                print(notification.content.subtitle)
-            }
-        })
     }
     
     func existNotification(alarm: Alarm) -> Bool {

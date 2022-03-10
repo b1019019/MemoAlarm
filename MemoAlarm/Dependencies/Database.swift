@@ -19,19 +19,16 @@ final class UserDefaultsDatabase: DatabaseIO {
     static var shared = UserDefaultsDatabase()
     
     func fetchAlarms() throws -> [Alarm] {
-        guard let storedData = UserDefaults.standard.object(forKey: "alarms") as? Data else { return [Alarm(name: "テスト", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false)] }
+        guard let storedData = UserDefaults.standard.object(forKey: "alarms") as? Data else { return [] }
         do {
-            guard let unarchivedObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(storedData) as? [Alarm] else { return [Alarm(name: "テスト2", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false)] }
-            unarchivedObject.map{print("fetchData",$0.isRingable,$0.name)}
+            guard let unarchivedObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(storedData) as? [Alarm] else { return [] }
             return unarchivedObject
         } catch {
-            return [Alarm(name: "テスト3", note: "", ringTime: DateComponents(), isRepeated: false, isRingable: false)]
+            return []
         }
-
     }
     
     func storeAlarms(alarms: [Alarm]) throws {
-        alarms.map{print("storeData",$0.isRingable,$0.name)}
         let archivedData = try! NSKeyedArchiver.archivedData(withRootObject: alarms, requiringSecureCoding: false)
         UserDefaults.standard.set(archivedData, forKey: "alarms")
     }
