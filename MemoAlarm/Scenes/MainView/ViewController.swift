@@ -50,8 +50,10 @@ final class ViewController: UIViewController, AlarmTableViewCellDelegate {
             })
             .bind(to: viewModel.inputs.tappedSwitchInAlarmTableViewCell)
             .disposed(by: disposeBag)
-        
+                
         viewModel.outputs.alarms
+            .filter({ $0.1 })
+            .map({ $0.0 })
             .drive(alarmTableView.rx.items(cellIdentifier: Const.alarmTableViewCellReuseIdentifier, cellType: AlarmTableViewCell.self)) { (row, alarm, cell) in
                 //delegateの設定の複雑性をなくす
                 cell.delegate = self
