@@ -36,7 +36,6 @@ class AlarmTableViewCell: UITableViewCell {
         repeatDateLabel.text = isRepeated ? "繰り返しあり" : "繰り返しなし"
         alarmSetSwitch.rx.value
             .map({ ($0,index) })
-            .share()
             .skip(1)
             .bind(to: delegate.tappedSwitch)
             .disposed(by: disposeBag)

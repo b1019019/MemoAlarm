@@ -65,7 +65,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                 fetchedAlarms = []
             }
             return (fetchedAlarms, true)
-        }.share()
+        }
         
         let alarmsChangedRingable = tappedSwitchInAlarmTableViewCell
             .withLatestFrom(behaviorAlarm) { (pair,alarms) -> ([Alarm], Bool) in
@@ -79,7 +79,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                     notificationManager.releaseNotification(alarm: alarms[index])
                 }
                 return (alarms, false)
-            }.share().debug()
+            }
         
         let alarmsEdited = ready.withLatestFrom(behaviorAlarm) { [weak self] (_, alarms) -> ([Alarm], Bool) in
             if let alarmAndIndex = self!.editedAlarmAndIndex {
@@ -98,7 +98,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             } else {
                 return (alarms.0, false)
             }
-        }.share().debug()
+        }
         
         let alarmsAdded = ready.withLatestFrom(behaviorAlarm) { [weak self] (_, alarms) -> ([Alarm], Bool) in
             if let alarm = self!.addedAlarm {
@@ -112,7 +112,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
             } else {
                 return (alarms.0, false)
             }
-        }.share()
+        }
         
         //willPresentを受け取ったときに行う行動：アラーム通知削除、データベースのRingableをfalseに
         let alarmNotificationWillPresent = notificationManager.willPresent
@@ -125,7 +125,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                     }
                 }
                 return (newAlarms, true)
-            }.share()
+            }
         
         let notificationDidReceive = notificationManager.didReceive
             .withLatestFrom(alarms) { (id, alarms) -> ([Alarm], Bool) in
@@ -137,7 +137,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                     }
                 }
                 return (newAlarms, true)
-            }.share()
+            }
         
         let didBecome = NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
             .withLatestFrom(alarms) { (_, alarms) -> ([Alarm], Bool) in
@@ -147,7 +147,7 @@ final class MainViewModel: MainViewModelType, MainViewModelInputs, MainViewModel
                     }
                 }
                 return (alarms.0, false)
-            }.share()
+            }
         
         let alarms = Observable.merge(alarmsInitialSet, alarmsChangedRingable, alarmsEdited, alarmsAdded, alarmNotificationWillPresent, notificationDidReceive, didBecome)
         
