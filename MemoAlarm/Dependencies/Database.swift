@@ -14,12 +14,16 @@ protocol DatabaseIO {
 
 final class UserDefaultsDatabase: DatabaseIO {
     
+    private struct Const {
+        static let alarmsKey = "alarms"
+    }
+    
     private init(){}
     
     static var shared = UserDefaultsDatabase()
     
     func fetchAlarms() throws -> [Alarm] {
-        guard let storedData = UserDefaults.standard.object(forKey: "alarms") as? Data else { return [] }
+        guard let storedData = UserDefaults.standard.object(forKey: Const.alarmsKey) as? Data else { return [] }
         do {
             guard let unarchivedObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(storedData) as? [Alarm] else { return [] }
             return unarchivedObject
@@ -30,6 +34,6 @@ final class UserDefaultsDatabase: DatabaseIO {
     
     func storeAlarms(alarms: [Alarm]) throws {
         let archivedData = try! NSKeyedArchiver.archivedData(withRootObject: alarms, requiringSecureCoding: false)
-        UserDefaults.standard.set(archivedData, forKey: "alarms")
+        UserDefaults.standard.set(archivedData, forKey: Const.alarmsKey)
     }
 }

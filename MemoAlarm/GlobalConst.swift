@@ -16,4 +16,5 @@ struct GlobalConst {
         return formatter
     }()
     static let alarmsUserDefaultKey = "alarms"
+    static let mainStorybordName = "Main"
 }

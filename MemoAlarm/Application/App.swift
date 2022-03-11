@@ -14,7 +14,7 @@ final class App {
     func startInterface(in window: UIWindow) {
         UserNotificationManager.shared.initNotification()
         //"Main"はGlobalConstなどで定義
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: GlobalConst.mainStorybordName, bundle: nil)
         let navigationVC = storyboard.instantiateInitialViewController() as! UINavigationController
         let viewController = navigationVC.viewControllers[0] as! ViewController
         let mainViewModel = MainViewModel(database: UserDefaultsDatabase.shared, notificationManager: UserNotificationManager.shared, navigator: MainViewNavigator(navigationController: navigationVC))
